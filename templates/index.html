@@ -1,0 +1,68 @@
+{% extends 'bootstrap/base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+
+{% block title %}
+Coinfections detector
+{% endblock %}
+
+{% block styles %}
+  {{ super() }}
+<style>
+  .READY {
+    color: green;
+  }
+  .IN_PROGRESS {
+    color: blue;
+  }
+  .FAILED {
+    color: red;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-8 col-12">
+          <h1 class="mb-5 mt-5">Coinfections</h1>
+          <table id="data" class="table table-striped">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Data</th>
+                <th>Positions</th>
+                <th>State</th>
+                <th>Download result</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for order in orders %}
+                <tr>
+                  <td>{{ order.name }}</td>
+                  <td>{{ order.date.strftime('%Y-%m-%d') }}</td>
+                  <td>{{ order.positions }}</td>
+                  <td class="{{order.state}}">{{ order.state }}</td>
+                  <td>{% if order.state == 'READY' %}<a href="/files/{{order.id}}">Download result</a>{% endif %}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+      </div>
+    <div class="col-md-4 col-12">
+
+      <h2 class="pt-5 pb-2">Submit new sample</h2>
+
+      <p class="lead">Please provide sample data</p>
+      <a href="/">Single sample form</a>
+      <a href="/multi">Multi sample form</a>
+
+      {{ wtf.quick_form(form) }}
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}

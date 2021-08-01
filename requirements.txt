@@ -1,0 +1,8 @@
+flask
+sqlalchemy
+uvicorn
+pyjwt
+Flask-WTF
+Flask-Bootstrap4
+flask_bootstrap
+pysam
