@@ -45,7 +45,7 @@ Coinfections detector
                   <td>{{ order.date.strftime('%Y-%m-%d') }}</td>
                   <td>{{ order.positions }}</td>
                   <td class="{{order.state}}">{{ order.state }}</td>
-                  <td>{% if order.state == 'READY' %}<a href="/files/{{order.id}}">Download result</a>{% endif %}</td>
+		  <td>{% if order.state == 'READY' %}<a href="{{basepath}}files/{{order.id}}">Download result</a>{% endif %}</td>
                 </tr>
               {% endfor %}
             </tbody>
@@ -56,8 +56,8 @@ Coinfections detector
       <h2 class="pt-5 pb-2">Submit new sample</h2>
 
       <p class="lead">Please provide sample data</p>
-      <a href="/">Single sample form</a>
-      <a href="/multi">Multi sample form</a>
+      <a href="{{basepath}}">Single sample form</a>
+      <a href="{{basepath}}multi">Multi sample form</a>
 
       {{ wtf.quick_form(form) }}
 

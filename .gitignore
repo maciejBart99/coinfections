@@ -3,3 +3,4 @@ results
 venv
 orders.db
 wd
+.env

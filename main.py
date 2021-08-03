@@ -15,6 +15,8 @@ from service import get_all_orders, create_order, get_by_id
 from order import DB
 
 SECRET = os.environ.get('COINFECTIONS_SECRET')
+PORT = os.environ.get('PORT')
+BASEPATH = os.environ.get('BASEPATH')
 
 app = Flask("Coinfections")
 app.config['SECRET_KEY'] = SECRET
@@ -71,9 +73,9 @@ def index():
             form = OrdersFrom()
 
         orders = get_all_orders(user_id, session)
-        return render_template("index.html", orders=orders, form=form)
+        return render_template("index.html", orders=orders, form=form, basepath=BASEPATH)
     elif request.method == 'GET':
-        resp = make_response(render_template('index.html', orders=[], form=form))
+        resp = make_response(render_template('index.html', orders=[], form=form, basepath=BASEPATH))
         resp.set_cookie('jwt', make_jwt())
         return resp
     else:
@@ -113,9 +115,9 @@ def multi():
             form = OrdersMultiFrom()
 
         orders = get_all_orders(user_id, session)
-        return render_template("index.html", orders=orders, form=form)
+        return render_template("index.html", orders=orders, form=form, basepath=BASEPATH)
     elif request.method == 'GET':
-        resp = make_response(render_template('index.html', orders=[], form=form))
+        resp = make_response(render_template('index.html', orders=[], form=form, basepath=BASEPATH))
         resp.set_cookie('jwt', make_jwt())
         return resp
     else:
@@ -141,5 +143,5 @@ def file_serve(order: int):
 if __name__ == '__main__':
     if not os.path.exists('results'):
         os.mkdir('results')
-    app.run(port=8080)
+    app.run(port=PORT)
 
